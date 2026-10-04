@@ -1,0 +1,66 @@
+---
+import type { Lang, RouteKey } from '../i18n/ui';
+import { localePath, useTranslations } from '../i18n/ui';
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import { telLink, whatsappLink } from '../lib/content';
+
+interface Props { lang: Lang; riad: CollectionEntry<'riad'>['data'] }
+const { lang, riad } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const items: { key: RouteKey; label: string }[] = [
+  { key: 'home', label: t('nav.home') },
+  { key: 'rooms', label: t('nav.rooms') },
+  { key: 'services', label: t('nav.services') },
+  { key: 'rabat', label: t('nav.rabat') },
+  { key: 'contact', label: t('nav.contact') },
+];
+---
+<footer class="mt-24 border-t border-sand-dark/60 bg-sand/60">
+  <div class="container-x grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="lg:col-span-2">
+      <p class="font-display text-3xl font-semibold">{riad.name}</p>
+      <p class="mt-3 max-w-sm text-sm leading-relaxed text-ink-soft">{riad.tagline[lang]}</p>
+      <div class="mt-6 flex gap-3">
+        {riad.instagram && (
+          <a href={riad.instagram} target="_blank" rel="noopener" aria-label="Instagram" class="rounded-full border border-ink/15 p-2.5 transition-colors hover:border-ink hover:bg-ink hover:text-paper"><Icon name="instagram" /></a>
+        )}
+        {riad.facebook && (
+          <a href={riad.facebook} target="_blank" rel="noopener" aria-label="Facebook" class="rounded-full border border-ink/15 p-2.5 transition-colors hover:border-ink hover:bg-ink hover:text-paper"><Icon name="facebook" /></a>
+        )}
+        <a href={whatsappLink(riad.whatsapp, t('wa.default'))} target="_blank" rel="noopener" aria-label="WhatsApp" class="rounded-full border border-ink/15 p-2.5 transition-colors hover:border-ink hover:bg-ink hover:text-paper"><Icon name="whatsapp" /></a>
+      </div>
+    </div>
+
+    <div>
+      <p class="text-[0.7rem] font-medium uppercase tracking-[0.22em] text-ink-muted">{t('footer.navigation')}</p>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        {items.map((item) => (
+          <li><a href={localePath(lang, item.key)} class="text-ink-soft transition-colors hover:text-terracotta">{item.label}</a></li>
+        ))}
+        <li>
+          <a href={localePath(lang, 'guide')} class="inline-flex items-center gap-2 text-terracotta hover:text-terracotta-dark">
+            <Icon name="qr" size={16} /> {t('footer.guide')}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-[0.7rem] font-medium uppercase tracking-[0.22em] text-ink-muted">{t('footer.contact')}</p>
+      <address class="mt-4 space-y-2.5 text-sm not-italic text-ink-soft">
+        <p>{riad.address.street}<br />{riad.address.postalCode} {riad.address.city}, {riad.address.country[lang]}</p>
+        <p><a href={telLink(riad.phone)} class="hover:text-terracotta">{riad.phone}</a></p>
+        <p><a href={`mailto:${riad.email}`} class="hover:text-terracotta">{riad.email}</a></p>
+      </address>
+    </div>
+  </div>
+  <div class="border-t border-sand-dark/60">
+    <div class="container-x flex flex-col gap-2 py-5 text-xs text-ink-muted sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} {riad.name}. {t('footer.rights')}</p>
+      <p>{riad.address.city}, {riad.address.country[lang]}</p>
+    </div>
+  </div>
+</footer>

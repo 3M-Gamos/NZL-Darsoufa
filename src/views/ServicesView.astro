@@ -1,0 +1,42 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/ui';
+import { formatPrice, getMinibar, getRiad, getServices, groupBy, serviceCategories } from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const riad = await getRiad();
+const groups = groupBy(await getServices('site'), (s) => s.data.category, serviceCategories);
+const minibar = await getMinibar();
+---
+<BaseLayout lang={lang} page="services" title={t('services.title')} description={t('services.intro')}>
+  <section class="container-x pt-16 sm:pt-24">
+    <SectionHeading as="h1" eyebrow={riad.name} title={t('services.title')} text={t('services.intro')} />
+  </section>
+
+  {groups.map(([category, list]) => (
+    <section class="container-x mt-16">
+      <h2 class="text-2xl sm:text-3xl">{t(`services.${category}`)}</h2>
+      <div class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {list.map((service) => <ServiceCard service={service} lang={lang} whatsapp={riad.whatsapp} />)}
+      </div>
+    </section>
+  ))}
+
+  <section class="container-x mt-16" id="minibar">
+    <h2 class="text-2xl sm:text-3xl">{t('services.minibar')}</h2>
+    <p class="mt-2 text-ink-soft">{t('services.minibarIntro')}</p>
+    <ul class="card mt-6 max-w-xl divide-y divide-sand-dark/60 px-6">
+      {minibar.map((item) => (
+        <li class="flex items-baseline justify-between gap-4 py-3 text-sm">
+          <span>{item.data.name[lang]}</span>
+          <span class="font-medium tabular-nums">{formatPrice(item.data.price, lang)} {t('currency')}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

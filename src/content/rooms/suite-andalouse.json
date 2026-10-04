@@ -1,0 +1,19 @@
+{
+  "name": { "fr": "Suite Andalouse", "en": "Andalusian Suite" },
+  "description": {
+    "fr": "La plus spacieuse de la maison : un salon marocain, une chambre avec plafond en cèdre peint et une grande salle de bain avec baignoire.",
+    "en": "The most spacious in the house: a Moroccan lounge, a bedroom with painted cedar ceiling and a large bathroom with bathtub."
+  },
+  "capacity": 3,
+  "size": 32,
+  "bed": { "fr": "Lit double 180 cm + banquette convertible", "en": "180 cm double bed + convertible sofa" },
+  "features": [
+    { "fr": "Salon privé", "en": "Private lounge" },
+    { "fr": "Baignoire & douche", "en": "Bathtub & shower" },
+    { "fr": "Climatisation réversible", "en": "Air conditioning & heating" },
+    { "fr": "Wi-Fi", "en": "Wi-Fi" }
+  ],
+  "priceFrom": 1200,
+  "image": "/images/placeholders/room-3.svg",
+  "order": 3
+}

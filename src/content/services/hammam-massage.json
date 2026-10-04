@@ -1,0 +1,13 @@
+{
+  "title": { "fr": "Hammam & massage", "en": "Hammam & massage" },
+  "description": {
+    "fr": "Nous réservons pour vous un hammam traditionnel ou un massage à l'huile d'argan dans un spa partenaire de la médina.",
+    "en": "We book a traditional hammam or an argan-oil massage for you at a partner spa in the medina."
+  },
+  "price": { "fr": "À partir de 350 MAD", "en": "From 350 MAD" },
+  "category": "wellness",
+  "icon": "spa",
+  "showOnSite": true,
+  "showInGuide": true,
+  "order": 20
+}

@@ -1,0 +1,50 @@
+---
+/**
+ * Planche imprimable des cartes QR à poser dans les chambres (format A6, 4 par page A4).
+ * Usage interne : non indexée. Imprimer avec Ctrl/Cmd + P.
+ */
+import '../../styles/global.css';
+import { getRiad } from '../../lib/content';
+const riad = await getRiad();
+const site = Astro.site ?? new URL('http://localhost:4321');
+const guideUrl = new URL('/guide/', site).href.replace(/^https?:\/\//, '');
+const cards = [1, 2, 3, 4];
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Cartes QR · Guide d'accueil · {riad.name}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+      @page { size: A4; margin: 10mm; }
+      @media print { body { background: white; } }
+    </style>
+  </head>
+  <body class="bg-sand/50 py-10">
+    <div class="no-print mx-auto mb-8 max-w-3xl px-5 text-sm text-ink-soft">
+      <h1 class="text-3xl">Cartes QR pour les chambres</h1>
+      <p class="mt-2">Imprimez cette page (Ctrl/Cmd + P) sur du papier épais, puis découpez les cartes. Le QR code pointe vers <strong>{guideUrl}</strong> et choisit automatiquement la langue du téléphone.</p>
+      <p class="mt-1">Fichier SVG seul : <a href="/qr/guide.svg" class="text-terracotta underline">/qr/guide.svg</a></p>
+    </div>
+    <div class="mx-auto grid max-w-3xl grid-cols-2 gap-6 px-5 print:gap-4 print:px-0">
+      {cards.map(() => (
+        <article class="flex aspect-[105/148] flex-col items-center justify-between rounded-2xl border border-sand-dark bg-paper p-8 text-center print:break-inside-avoid print:rounded-none">
+          <div>
+            <p class="font-display text-3xl font-semibold">{riad.name}</p>
+            <p class="mt-1 text-[0.65rem] uppercase tracking-[0.25em] text-ink-muted">Rabat</p>
+          </div>
+          <img src="/qr/guide.svg" alt="QR code" class="w-40" />
+          <div class="space-y-2 text-sm leading-snug">
+            <p><span class="font-medium">Guide d'accueil</span><br /><span class="text-ink-soft">Wi-Fi, horaires, services, bonnes adresses</span></p>
+            <p><span class="font-medium">Welcome guide</span><br /><span class="text-ink-soft">Wi-Fi, hours, services, local tips</span></p>
+            <p class="pt-1 text-xs text-ink-muted">{guideUrl}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </body>
+</html>

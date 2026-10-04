@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens — palette "riad" : sable, terre cuite, vert zellige.
+   Modifier ces valeurs suffit à rethémer tout le site et le guide.
+   ------------------------------------------------------------------ */
+@theme {
+  --color-paper: #fbf7f1;
+  --color-sand: #efe6d8;
+  --color-sand-dark: #e1d3bf;
+  --color-ink: #2b2522;
+  --color-ink-soft: #645a52;
+  --color-ink-muted: #8d8279;
+  --color-terracotta: #a9573b;
+  --color-terracotta-dark: #8b4630;
+  --color-terracotta-light: #f1e0d8;
+  --color-ochre: #c9973f;
+  --color-zellige: #4f6f5e;
+  --color-zellige-dark: #3b5447;
+  --color-zellige-light: #e3ebe6;
+  --color-whatsapp: #25d366;
+
+  --font-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --font-body: "Jost", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --shadow-soft: 0 10px 30px -12px rgb(43 37 34 / 0.18);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-paper text-ink font-body antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display font-medium tracking-tight text-ink;
+    text-wrap: balance;
+  }
+  ::selection {
+    background: var(--color-terracotta-light);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 3px;
+  }
+}
+
+/* Utilitaires maison (Tailwind 4 : @utility pour pouvoir les réutiliser via @apply) */
+@utility container-x {
+  @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+}
+@utility eyebrow {
+  @apply inline-flex items-center gap-3 text-[0.72rem] font-medium uppercase tracking-[0.22em] text-terracotta;
+  &::before {
+    content: "";
+    @apply block h-px w-8 bg-terracotta;
+  }
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-wide transition-colors duration-200;
+}
+@utility btn-primary {
+  @apply btn bg-terracotta text-paper hover:bg-terracotta-dark;
+}
+@utility btn-outline {
+  @apply btn border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-paper;
+}
+@utility btn-light {
+  @apply btn border border-paper/60 text-paper hover:bg-paper hover:text-ink;
+}
+@utility btn-whatsapp {
+  @apply btn bg-whatsapp text-white hover:bg-[#1ebe5b];
+}
+@utility card {
+  @apply rounded-2xl border border-sand-dark/60 bg-white/70;
+}
+@utility prose-riad {
+  & p + p {
+    @apply mt-4;
+  }
+}
+/* Motif géométrique discret (étoile à huit branches) utilisé en fond
+   et comme image de remplacement tant que les photos ne sont pas livrées. */
+@utility pattern-zellige {
+  background-color: var(--color-sand);
+  background-image: url("/images/placeholders/pattern.svg");
+  background-size: 160px 160px;
+}
+
+@media print {
+  .no-print { display: none !important; }
+}

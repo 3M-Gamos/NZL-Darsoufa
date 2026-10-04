@@ -1,0 +1,33 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/ui';
+import { getPlaces, getRiad, groupBy, placeCategories } from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import PlaceCard from '../components/PlaceCard.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const riad = await getRiad();
+const groups = groupBy(await getPlaces(), (p) => p.data.category, placeCategories);
+---
+<BaseLayout lang={lang} page="rabat" title={t('rabat.title')} description={t('rabat.intro')}>
+  <section class="container-x pt-16 sm:pt-24">
+    <SectionHeading as="h1" eyebrow={riad.name} title={t('rabat.title')} text={t('rabat.intro')} />
+    <nav class="mt-8 flex flex-wrap gap-2" aria-label={t('nav.rabat')}>
+      {groups.map(([category]) => (
+        <a href={`#${category}`} class="rounded-full border border-ink/15 px-4 py-1.5 text-sm text-ink-soft transition-colors hover:border-ink hover:text-ink">{t(`rabat.${category}`)}</a>
+      ))}
+    </nav>
+  </section>
+
+  {groups.map(([category, list]) => (
+    <section class="container-x mt-16 scroll-mt-28" id={category}>
+      <h2 class="text-2xl sm:text-3xl">{t(`rabat.${category}`)}</h2>
+      <div class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {list.map((place) => <PlaceCard place={place} lang={lang} />)}
+      </div>
+    </section>
+  ))}
+</BaseLayout>

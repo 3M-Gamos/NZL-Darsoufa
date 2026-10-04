@@ -1,0 +1,12 @@
+{
+  "name": { "fr": "Le Dhow", "en": "Le Dhow" },
+  "category": "nightlife",
+  "description": {
+    "fr": "Bar-restaurant sur un bateau amarré au pied de la Kasbah, pour un verre au coucher du soleil.",
+    "en": "Bar-restaurant on a boat moored at the foot of the Kasbah, for a drink at sunset."
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Le+Dhow+Rabat",
+  "distance": { "fr": "12 min à pied", "en": "12-min walk" },
+  "featured": false,
+  "order": 50
+}

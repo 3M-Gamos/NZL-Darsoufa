@@ -1,0 +1,136 @@
+---
+import type { Lang } from '../i18n/ui';
+import { localePath, useTranslations } from '../i18n/ui';
+import { getPlaces, getRiad, getRooms, getServices, telLink } from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import RoomCard from '../components/RoomCard.astro';
+import PlaceCard from '../components/PlaceCard.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const riad = await getRiad();
+const rooms = (await getRooms()).slice(0, 3);
+const services = (await getServices('site')).slice(0, 4);
+const places = (await getPlaces()).filter((p) => p.data.featured).slice(0, 3);
+const introParagraphs = riad.intro[lang].split(/\n\s*\n/);
+---
+<BaseLayout lang={lang} page="home" title={riad.name} description={riad.tagline[lang]}>
+  <!-- Hero -->
+  <section class="relative isolate min-h-[82vh] overflow-hidden bg-ink text-paper">
+    <img
+      src={riad.images.hero}
+      alt=""
+      width="1600"
+      height="1000"
+      fetchpriority="high"
+      class="absolute inset-0 -z-10 h-full w-full object-cover opacity-80"
+    />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/80 via-ink/30 to-ink/20"></div>
+    <div class="container-x flex min-h-[82vh] flex-col justify-end pb-16 pt-24 sm:pb-24">
+      <p class="eyebrow !text-ochre">{t('home.eyebrow')}</p>
+      <h1 class="mt-5 max-w-3xl text-5xl leading-[1] text-paper sm:text-6xl lg:text-7xl">{riad.name}</h1>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-paper/85 sm:text-xl">{riad.tagline[lang]}</p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href={riad.bookingUrl} target="_blank" rel="noopener" class="btn-primary">{t('nav.book')}</a>
+        <a href={localePath(lang, 'rooms')} class="btn-light">{t('home.discoverRooms')}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- La maison -->
+  <section class="container-x grid items-center gap-12 py-24 lg:grid-cols-12">
+    <div class="lg:col-span-6">
+      <SectionHeading eyebrow={t('home.aboutEyebrow')} title={t('home.aboutTitle')} />
+      <div class="prose-riad mt-6 max-w-xl leading-relaxed text-ink-soft">
+        {introParagraphs.map((p) => <p>{p}</p>)}
+      </div>
+      <dl class="mt-8 grid grid-cols-3 gap-4 border-t border-sand-dark/70 pt-6 text-sm">
+        <div><dt class="text-ink-muted">{t('contact.checkIn')}</dt><dd class="mt-1 font-medium">{riad.hours.checkInFrom} – {riad.hours.checkInTo}</dd></div>
+        <div><dt class="text-ink-muted">{t('contact.checkOut')}</dt><dd class="mt-1 font-medium">{riad.hours.checkOut}</dd></div>
+        <div><dt class="text-ink-muted">{t('contact.breakfast')}</dt><dd class="mt-1 font-medium">{riad.hours.breakfastFrom} – {riad.hours.breakfastTo}</dd></div>
+      </dl>
+    </div>
+    <div class="relative lg:col-span-6">
+      <div class="pattern-zellige absolute -left-6 -top-6 h-40 w-40 rounded-2xl opacity-80 lg:-left-10 lg:-top-10"></div>
+      <img src={riad.images.about} alt="" width="1200" height="1400" loading="lazy" class="relative aspect-[5/6] w-full rounded-2xl object-cover shadow-soft" />
+    </div>
+  </section>
+
+  <!-- Chambres -->
+  <section class="bg-sand/60 py-24">
+    <div class="container-x">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <SectionHeading eyebrow={t('home.roomsEyebrow')} title={t('home.roomsTitle')} />
+        <a href={localePath(lang, 'rooms')} class="btn-outline">{t('home.roomsAll')}</a>
+      </div>
+      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {rooms.map((room) => <RoomCard room={room} lang={lang} bookingUrl={riad.bookingUrl} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="container-x py-24">
+    <SectionHeading eyebrow={t('home.servicesEyebrow')} title={t('home.servicesTitle')} align="center" />
+    <ul class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      {services.map((s) => (
+        <li class="text-center">
+          <span class="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-terracotta-light text-terracotta"><Icon name={s.data.icon} size={26} /></span>
+          <h3 class="mt-4 text-xl">{s.data.title[lang]}</h3>
+          <p class="mt-1 text-sm text-zellige-dark">{s.data.price[lang]}</p>
+        </li>
+      ))}
+    </ul>
+    <div class="mt-10 text-center">
+      <a href={localePath(lang, 'services')} class="inline-flex items-center gap-2 text-sm font-medium text-terracotta hover:text-terracotta-dark">{t('home.servicesAll')} <Icon name="arrow" size={16} /></a>
+    </div>
+  </section>
+
+  <!-- Rabat -->
+  <section class="bg-zellige-dark py-24 text-paper">
+    <div class="container-x">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div class="max-w-2xl">
+          <p class="eyebrow !text-ochre">{t('home.rabatEyebrow')}</p>
+          <h2 class="mt-4 text-3xl text-paper sm:text-4xl lg:text-[2.75rem]">{t('home.rabatTitle')}</h2>
+        </div>
+        <a href={localePath(lang, 'rabat')} class="btn-light">{t('home.rabatAll')}</a>
+      </div>
+      <div class="mt-12 grid gap-6 md:grid-cols-3 [&_.card]:border-paper/10 [&_.card]:bg-paper/95">
+        {places.map((place) => <PlaceCard place={place} lang={lang} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Guide d'accueil -->
+  <section class="container-x py-24">
+    <div class="card grid items-center gap-10 overflow-hidden p-8 sm:p-12 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <SectionHeading eyebrow={t('home.guideEyebrow')} title={t('home.guideTitle')} text={t('home.guideText')} />
+        <a href={localePath(lang, 'guide')} class="btn-primary mt-8">{t('home.guideCta')} <Icon name="arrow" size={16} /></a>
+      </div>
+      <div class="flex justify-center lg:col-span-5">
+        <div class="rounded-2xl bg-paper p-5 shadow-soft">
+          <img src="/qr/guide.svg" alt="QR code" width="180" height="180" class="h-44 w-44" />
+          <p class="mt-3 text-center text-[0.7rem] uppercase tracking-[0.2em] text-ink-muted">{t('nav.guide')}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="container-x pb-8">
+    <div class="rounded-3xl bg-terracotta px-8 py-14 text-center text-paper sm:px-16">
+      <h2 class="text-3xl text-paper sm:text-4xl">{t('home.contactTitle')}</h2>
+      <p class="mx-auto mt-4 max-w-xl text-paper/85">{t('home.contactText')}</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <WhatsAppButton number={riad.whatsapp} message={t('wa.default')} label={t('contact.whatsapp')} />
+        <a href={telLink(riad.phone)} class="btn-light"><Icon name="phone" size={18} /> {riad.phone}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

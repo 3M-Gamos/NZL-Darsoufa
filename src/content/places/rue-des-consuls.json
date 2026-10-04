@@ -1,0 +1,13 @@
+{
+  "name": { "fr": "Rue des Consuls", "en": "Rue des Consuls" },
+  "category": "shopping",
+  "description": {
+    "fr": "La rue des artisans de la médina : tapis, cuir, bijoux, poterie de Salé. Le marché aux tapis a lieu le lundi et le jeudi matin.",
+    "en": "The medina's artisans' street: rugs, leather, jewellery, Salé pottery. The rug market is held on Monday and Thursday mornings."
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Rue+des+Consuls+Rabat",
+  "distance": { "fr": "5 min à pied", "en": "5-min walk" },
+  "tip": { "fr": "Les prix se négocient avec le sourire.", "en": "Prices are negotiated with a smile." },
+  "featured": true,
+  "order": 10
+}

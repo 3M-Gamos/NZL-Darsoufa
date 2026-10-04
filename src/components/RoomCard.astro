@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/ui';
+import { formatPrice } from '../lib/content';
+import Icon from './Icon.astro';
+
+interface Props { room: CollectionEntry<'rooms'>; lang: Lang; bookingUrl: string; detailed?: boolean }
+const { room, lang, bookingUrl, detailed = false } = Astro.props;
+const t = useTranslations(lang);
+const d = room.data;
+---
+<article class:list={['card group overflow-hidden', detailed && 'grid lg:grid-cols-2']} id={room.id}>
+  <div class:list={['relative overflow-hidden bg-sand', detailed ? 'aspect-[4/3] lg:aspect-auto lg:min-h-[26rem]' : 'aspect-[4/3]']}>
+    <img
+      src={d.image}
+      alt={d.name[lang]}
+      loading="lazy"
+      decoding="async"
+      width="1200"
+      height="900"
+      class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+    />
+    <p class="absolute left-4 top-4 rounded-full bg-paper/90 px-3 py-1 text-xs tracking-wide text-ink">
+      {t('rooms.from')} <strong class="font-semibold">{formatPrice(d.priceFrom, lang)} {t('currency')}</strong> {t('rooms.perNight')}
+    </p>
+  </div>
+  <div class:list={['flex flex-col p-6', detailed && 'lg:p-10']}>
+    <h3 class:list={[detailed ? 'text-3xl sm:text-4xl' : 'text-2xl']}>{d.name[lang]}</h3>
+    <ul class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-ink-soft">
+      <li class="inline-flex items-center gap-1.5"><Icon name="users" size={16} /> {d.capacity} {t('rooms.guests')}</li>
+      <li class="inline-flex items-center gap-1.5"><Icon name="ruler" size={16} /> {d.size} {t('rooms.size')}</li>
+      <li class="inline-flex items-center gap-1.5"><Icon name="bed" size={16} /> {d.bed[lang]}</li>
+    </ul>
+    <p class:list={['mt-4 leading-relaxed text-ink-soft', !detailed && 'line-clamp-3']}>{d.description[lang]}</p>
+    {detailed && (
+      <div class="mt-6">
+        <p class="text-[0.7rem] font-medium uppercase tracking-[0.22em] text-ink-muted">{t('rooms.features')}</p>
+        <ul class="mt-3 grid gap-2 sm:grid-cols-2">
+          {d.features.map((f) => (
+            <li class="inline-flex items-start gap-2 text-sm text-ink-soft"><Icon name="check" size={16} class="mt-0.5 shrink-0 text-zellige" /> {f[lang]}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+    <div class="mt-auto pt-6">
+      <a href={bookingUrl} target="_blank" rel="noopener" class:list={[detailed ? 'btn-primary' : 'inline-flex items-center gap-2 text-sm font-medium text-terracotta hover:text-terracotta-dark']}>
+        {t('rooms.book')} <Icon name="arrow" size={16} />
+      </a>
+    </div>
+  </div>
+</article>

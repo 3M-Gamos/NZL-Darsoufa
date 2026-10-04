@@ -1,0 +1,12 @@
+{
+  "name": { "fr": "Jardin d'Essais Botaniques", "en": "Botanical Test Gardens" },
+  "category": "nature",
+  "description": {
+    "fr": "Dix-sept hectares de jardins centenaires et de palmiers, parfaits pour une promenade au frais.",
+    "en": "Seventeen hectares of century-old gardens and palm trees, perfect for a cool stroll."
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Jardin+d'Essais+Botaniques+Rabat",
+  "distance": { "fr": "15 min en tramway", "en": "15 min by tram" },
+  "featured": false,
+  "order": 40
+}

@@ -1,0 +1,12 @@
+{
+  "name": { "fr": "Tour Hassan & Mausolée Mohammed V", "en": "Hassan Tower & Mohammed V Mausoleum" },
+  "category": "culture",
+  "description": {
+    "fr": "Le minaret inachevé du XIIe siècle et le mausolée royal, chef-d'œuvre d'artisanat marocain gardé par la garde royale.",
+    "en": "The unfinished 12th-century minaret and the royal mausoleum, a masterpiece of Moroccan craftsmanship guarded by the royal guard."
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Tour+Hassan+Rabat",
+  "distance": { "fr": "20 min à pied ou 10 MAD en taxi", "en": "20-min walk or 10 MAD by taxi" },
+  "featured": true,
+  "order": 2
+}

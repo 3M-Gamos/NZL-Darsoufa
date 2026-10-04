@@ -1,0 +1,84 @@
+---
+import '../styles/global.css';
+import type { Lang, RouteKey } from '../i18n/ui';
+import { htmlLang, localePath, locales, useTranslations } from '../i18n/ui';
+import { getRiad } from '../lib/content';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+
+interface Props {
+  lang: Lang;
+  page: RouteKey;
+  title: string;
+  description: string;
+  image?: string;
+  /** Masquer l'en-tête/pied de page du site (utilisé par le guide). */
+  bare?: boolean;
+  noindex?: boolean;
+}
+const { lang, page, title, description, image, bare = false, noindex = false } = Astro.props;
+const riad = await getRiad();
+const t = useTranslations(lang);
+
+const site = Astro.site ?? new URL('http://localhost:4321');
+const canonical = new URL(localePath(lang, page), site);
+const ogImage = new URL(image ?? '/images/placeholders/og.svg', site);
+const fullTitle = title === riad.name ? title : `${title} · ${riad.name}`;
+---
+<!doctype html>
+<html lang={htmlLang[lang]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical.href} />
+    {locales.map((l) => <link rel="alternate" hreflang={l} href={new URL(localePath(l, page), site).href} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(localePath('fr', page), site).href} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#fbf7f1" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={riad.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={ogImage.href} />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_GB'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'LodgingBusiness',
+      name: riad.name,
+      description: riad.tagline[lang],
+      url: site.href,
+      telephone: riad.phone,
+      email: riad.email,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: riad.address.street,
+        addressLocality: riad.address.city,
+        postalCode: riad.address.postalCode,
+        addressCountry: 'MA',
+      },
+      checkinTime: riad.hours.checkInFrom,
+      checkoutTime: riad.hours.checkOut,
+    })} />
+    <slot name="head" />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    {!bare && <Header lang={lang} page={page} bookingUrl={riad.bookingUrl} siteName={riad.name} />}
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    {!bare && <Footer lang={lang} riad={riad} />}
+    {!bare && <WhatsAppButton floating number={riad.whatsapp} message={t('wa.default')} label="WhatsApp" />}
+  </body>
+</html>

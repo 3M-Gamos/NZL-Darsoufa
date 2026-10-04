@@ -1,0 +1,13 @@
+{
+  "title": { "fr": "Chauffeur à la journée", "en": "Driver for the day" },
+  "description": {
+    "fr": "Excursions vers Casablanca, Meknès et Volubilis, Fès ou la côte atlantique, avec un chauffeur francophone et anglophone.",
+    "en": "Day trips to Casablanca, Meknes and Volubilis, Fez or the Atlantic coast, with a French- and English-speaking driver."
+  },
+  "price": { "fr": "Sur devis", "en": "On request" },
+  "category": "transport",
+  "icon": "car",
+  "showOnSite": true,
+  "showInGuide": true,
+  "order": 13
+}

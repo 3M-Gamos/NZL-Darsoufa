@@ -1,0 +1,13 @@
+{
+  "name": { "fr": "Kasbah des Oudayas", "en": "Kasbah of the Udayas" },
+  "category": "culture",
+  "description": {
+    "fr": "Citadelle du XIIe siècle aux ruelles bleues et blanches, avec son jardin andalou et une vue sur l'estuaire du Bouregreg.",
+    "en": "A 12th-century citadel with blue-and-white lanes, an Andalusian garden and views over the Bouregreg estuary."
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Kasbah+des+Oudayas+Rabat",
+  "distance": { "fr": "10 min à pied", "en": "10-min walk" },
+  "tip": { "fr": "Allez-y en fin d'après-midi pour la lumière et le thé au Café Maure.", "en": "Go in the late afternoon for the light and a mint tea at Café Maure." },
+  "featured": true,
+  "order": 1
+}

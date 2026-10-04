@@ -1,0 +1,12 @@
+{
+  "name": { "fr": "Chellah", "en": "Chellah" },
+  "category": "culture",
+  "description": {
+    "fr": "Nécropole mérinide bâtie sur la cité romaine de Sala Colonia : ruines, jardins et colonies de cigognes.",
+    "en": "A Marinid necropolis built over the Roman city of Sala Colonia: ruins, gardens and colonies of storks."
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Chellah+Rabat",
+  "distance": { "fr": "15 min en taxi", "en": "15 min by taxi" },
+  "featured": false,
+  "order": 3
+}

@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+import { whatsappLink } from '../lib/content';
+
+interface Props { number: string; message?: string; label: string; floating?: boolean; class?: string }
+const { number, message, label, floating = false, class: className = '' } = Astro.props;
+---
+{floating ? (
+  <a
+    href={whatsappLink(number, message)}
+    target="_blank"
+    rel="noopener"
+    class:list={['no-print fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-soft transition-transform hover:scale-105', className]}
+    aria-label={label}
+  >
+    <Icon name="whatsapp" size={28} />
+  </a>
+) : (
+  <a href={whatsappLink(number, message)} target="_blank" rel="noopener" class:list={['btn-whatsapp', className]}>
+    <Icon name="whatsapp" /> {label}
+  </a>
+)}

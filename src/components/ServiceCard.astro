@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/ui';
+import { whatsappLink } from '../lib/content';
+import Icon from './Icon.astro';
+
+interface Props { service: CollectionEntry<'services'>; lang: Lang; whatsapp: string; compact?: boolean }
+const { service, lang, whatsapp, compact = false } = Astro.props;
+const t = useTranslations(lang);
+const d = service.data;
+const note = d.note?.[lang];
+---
+<article class:list={['card flex flex-col p-6', compact && 'p-5']}>
+  <div class="flex items-start gap-4">
+    <span class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-terracotta-light text-terracotta">
+      <Icon name={d.icon} size={22} />
+    </span>
+    <div class="min-w-0">
+      <h3 class:list={[compact ? 'text-xl' : 'text-2xl', 'leading-tight']}>{d.title[lang]}</h3>
+      <p class="mt-1 text-sm font-medium text-zellige-dark">{d.price[lang]}</p>
+    </div>
+  </div>
+  <p class="mt-4 text-sm leading-relaxed text-ink-soft">{d.description[lang]}</p>
+  {note && <p class="mt-3 inline-flex items-start gap-2 text-xs text-ink-muted"><Icon name="info" size={14} class="mt-0.5 shrink-0" /> {note}</p>}
+  <div class="mt-auto pt-5">
+    <a
+      href={whatsappLink(whatsapp, `${t('wa.service')}${d.title[lang]}`)}
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center gap-2 text-sm font-medium text-terracotta hover:text-terracotta-dark"
+    >
+      <Icon name="whatsapp" size={16} /> {compact ? t('guide.bookService') : t('services.bookWhatsapp')}
+    </a>
+  </div>
+</article>

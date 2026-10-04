@@ -1,0 +1,22 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/ui';
+import { getRiad, getRooms } from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import RoomCard from '../components/RoomCard.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const riad = await getRiad();
+const rooms = await getRooms();
+---
+<BaseLayout lang={lang} page="rooms" title={t('rooms.title')} description={t('rooms.intro')}>
+  <section class="container-x pt-16 sm:pt-24">
+    <SectionHeading as="h1" eyebrow={riad.name} title={t('rooms.title')} text={t('rooms.intro')} />
+  </section>
+  <section class="container-x mt-14 space-y-8">
+    {rooms.map((room) => <RoomCard room={room} lang={lang} bookingUrl={riad.bookingUrl} detailed />)}
+  </section>
+</BaseLayout>

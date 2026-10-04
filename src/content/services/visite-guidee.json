@@ -1,0 +1,13 @@
+{
+  "title": { "fr": "Visite guidée de Rabat", "en": "Guided tour of Rabat" },
+  "description": {
+    "fr": "Une demi-journée avec un guide officiel : médina, Kasbah des Oudayas, Tour Hassan et Chellah.",
+    "en": "Half a day with an official guide: medina, Kasbah of the Udayas, Hassan Tower and Chellah."
+  },
+  "price": { "fr": "600 MAD (jusqu'à 4 pers.)", "en": "600 MAD (up to 4 people)" },
+  "category": "other",
+  "icon": "compass",
+  "showOnSite": true,
+  "showInGuide": true,
+  "order": 30
+}

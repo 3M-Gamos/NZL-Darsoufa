@@ -1,0 +1,67 @@
+{
+  "items": [
+    {
+      "id": "eau",
+      "name": {
+        "fr": "Eau minérale 50 cl",
+        "en": "Mineral water 50 cl"
+      },
+      "price": 15,
+      "order": 1
+    },
+    {
+      "id": "eau-gazeuse",
+      "name": {
+        "fr": "Eau gazeuse 50 cl",
+        "en": "Sparkling water 50 cl"
+      },
+      "price": 20,
+      "order": 2
+    },
+    {
+      "id": "soda",
+      "name": {
+        "fr": "Soda 33 cl",
+        "en": "Soft drink 33 cl"
+      },
+      "price": 20,
+      "order": 3
+    },
+    {
+      "id": "jus",
+      "name": {
+        "fr": "Jus de fruits 25 cl",
+        "en": "Fruit juice 25 cl"
+      },
+      "price": 25,
+      "order": 4
+    },
+    {
+      "id": "biere",
+      "name": {
+        "fr": "Bière locale 33 cl",
+        "en": "Local beer 33 cl"
+      },
+      "price": 40,
+      "order": 5
+    },
+    {
+      "id": "snack",
+      "name": {
+        "fr": "Amandes & fruits secs",
+        "en": "Almonds & dried fruit"
+      },
+      "price": 30,
+      "order": 6
+    },
+    {
+      "id": "chocolat",
+      "name": {
+        "fr": "Chocolat",
+        "en": "Chocolate bar"
+      },
+      "price": 20,
+      "order": 7
+    }
+  ]
+}

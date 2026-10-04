@@ -1,0 +1,12 @@
+{
+  "name": { "fr": "Musée Mohammed VI d'Art Moderne et Contemporain", "en": "Mohammed VI Museum of Modern and Contemporary Art" },
+  "category": "culture",
+  "description": {
+    "fr": "Le grand musée d'art moderne du pays, avec des expositions temporaires de niveau international.",
+    "en": "The country's leading modern art museum, with international-standard temporary exhibitions."
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Musee+Mohammed+VI+Art+Moderne+Rabat",
+  "distance": { "fr": "15 min à pied", "en": "15-min walk" },
+  "featured": false,
+  "order": 4
+}

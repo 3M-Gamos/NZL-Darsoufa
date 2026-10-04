@@ -1,0 +1,13 @@
+{
+  "title": { "fr": "Transfert aéroport Rabat-Salé", "en": "Rabat-Salé airport transfer" },
+  "description": {
+    "fr": "Un chauffeur vous attend à la sortie de l'aéroport avec une pancarte au nom du riad et vous accompagne jusqu'à la porte.",
+    "en": "A driver waits for you at the airport exit with a sign bearing the riad's name and walks you to the door."
+  },
+  "price": { "fr": "250 MAD par trajet (1 à 4 pers.)", "en": "250 MAD per trip (1 to 4 people)" },
+  "category": "transport",
+  "icon": "plane",
+  "showOnSite": true,
+  "showInGuide": true,
+  "order": 10
+}

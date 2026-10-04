@@ -1,0 +1,29 @@
+---
+import '../styles/global.css';
+import { localePath, useTranslations } from '../i18n/ui';
+const fr = useTranslations('fr');
+const en = useTranslations('en');
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>404 · Riad Dar Soufa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body class="pattern-zellige grid min-h-screen place-items-center px-5">
+    <div class="card max-w-md p-10 text-center">
+      <p class="eyebrow justify-center">404</p>
+      <h1 class="mt-4 text-4xl">{fr('notfound.title')}</h1>
+      <p class="mt-3 text-ink-soft">{fr('notfound.text')}</p>
+      <a href={localePath('fr', 'home')} class="btn-primary mt-6">{fr('notfound.back')}</a>
+      <hr class="my-8 border-sand-dark" />
+      <h2 class="text-2xl" lang="en">{en('notfound.title')}</h2>
+      <p class="mt-3 text-ink-soft" lang="en">{en('notfound.text')}</p>
+      <a href={localePath('en', 'home')} class="btn-outline mt-6" lang="en">{en('notfound.back')}</a>
+    </div>
+  </body>
+</html>

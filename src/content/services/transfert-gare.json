@@ -1,0 +1,13 @@
+{
+  "title": { "fr": "Transfert gare Rabat-Ville ou Agdal", "en": "Rabat-Ville or Agdal station transfer" },
+  "description": {
+    "fr": "Pour arriver ou repartir en train sans porter vos valises dans la médina.",
+    "en": "Arrive or leave by train without carrying your luggage through the medina."
+  },
+  "price": { "fr": "100 MAD par trajet", "en": "100 MAD per trip" },
+  "category": "transport",
+  "icon": "train",
+  "showOnSite": true,
+  "showInGuide": true,
+  "order": 12
+}

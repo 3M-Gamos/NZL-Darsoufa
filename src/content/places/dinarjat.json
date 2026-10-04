@@ -1,0 +1,13 @@
+{
+  "name": { "fr": "Dinarjat", "en": "Dinarjat" },
+  "category": "restaurant",
+  "description": {
+    "fr": "Cuisine marocaine raffinée dans une demeure andalouse de la médina, musique andalouse le soir.",
+    "en": "Refined Moroccan cuisine in an Andalusian mansion of the medina, with live Andalusian music in the evening."
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Restaurant+Dinarjat+Rabat",
+  "distance": { "fr": "7 min à pied", "en": "7-min walk" },
+  "tip": { "fr": "Réservation conseillée, nous pouvons la faire pour vous.", "en": "Booking recommended; we can arrange it for you." },
+  "featured": true,
+  "order": 20
+}

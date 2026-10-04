@@ -1,0 +1,217 @@
+# ------------------------------------------------------------------
+# Decap CMS — configuration de l'interface d'administration (/admin/)
+#
+# Le contenu est enregistré directement dans le dépôt Git (dossier src/content/).
+# Chaque modification déclenche une reconstruction du site chez l'hébergeur.
+#
+# AUTHENTIFICATION (à faire une fois, au déploiement) :
+#  - Netlify : backend `git-gateway` + Netlify Identity (invitation par e-mail).
+#  - Autre hébergeur (Vercel, Cloudflare Pages…) : backend `github` + un petit
+#    service OAuth (ex. decap-proxy, netlify-cms-oauth-provider) et `base_url`.
+# ------------------------------------------------------------------
+backend:
+  name: github
+  repo: 3M-Gamos/NZL-Darsoufa
+  branch: main
+  # base_url: https://oauth.riaddarsoufa.com   # service OAuth, voir README
+
+# Pour tester l'interface en local sans authentification :
+#   npx decap-server   (puis décommenter la ligne ci-dessous)
+# local_backend: true
+
+locale: fr
+site_url: https://www.riaddarsoufa.com
+display_url: https://www.riaddarsoufa.com
+logo_url: /favicon.svg
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+  # ---------------- Informations du riad ----------------
+  - name: settings
+    label: "Le riad"
+    description: "Coordonnées, horaires, Wi-Fi, accès et parking. Utilisés sur le site ET dans le guide d'accueil."
+    editor: { preview: false }
+    files:
+      - name: riad
+        label: "Informations générales"
+        file: src/content/settings/riad.json
+        fields:
+          - { label: "Nom", name: name, widget: string }
+          - { label: "Accroche", name: tagline, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }] }
+          - { label: "Présentation (page d'accueil)", name: intro, widget: object, fields: [{ label: Français, name: fr, widget: text }, { label: English, name: en, widget: text }], hint: "Séparer les paragraphes par une ligne vide." }
+          - label: Adresse
+            name: address
+            widget: object
+            fields:
+              - { label: Rue, name: street, widget: string }
+              - { label: Ville, name: city, widget: string }
+              - { label: "Code postal", name: postalCode, widget: string, required: false }
+              - { label: Pays, name: country, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }] }
+          - { label: "Lien Google Maps du riad", name: mapsUrl, widget: string }
+          - { label: "Téléphone (affiché)", name: phone, widget: string }
+          - { label: "WhatsApp (chiffres uniquement, ex. 212600000000)", name: whatsapp, widget: string, pattern: ['^\d{8,15}$', 'Indicatif + numéro, sans + ni espaces'] }
+          - { label: "E-mail", name: email, widget: string }
+          - { label: "Lien de réservation", name: bookingUrl, widget: string }
+          - { label: Instagram, name: instagram, widget: string, required: false }
+          - { label: Facebook, name: facebook, widget: string, required: false }
+          - label: Horaires
+            name: hours
+            widget: object
+            fields:
+              - { label: "Arrivée dès", name: checkInFrom, widget: string }
+              - { label: "Arrivée jusqu'à", name: checkInTo, widget: string }
+              - { label: "Départ avant", name: checkOut, widget: string }
+              - { label: "Petit-déjeuner de", name: breakfastFrom, widget: string }
+              - { label: "Petit-déjeuner à", name: breakfastTo, widget: string }
+              - { label: "Accueil de", name: receptionFrom, widget: string }
+              - { label: "Accueil à", name: receptionTo, widget: string }
+          - label: "Wi-Fi"
+            name: wifi
+            widget: object
+            fields:
+              - { label: "Nom du réseau", name: ssid, widget: string }
+              - { label: "Mot de passe", name: password, widget: string }
+          - { label: "Accès au riad", name: access, widget: object, fields: [{ label: Français, name: fr, widget: text }, { label: English, name: en, widget: text }] }
+          - { label: Parking, name: parking, widget: object, fields: [{ label: Français, name: fr, widget: text }, { label: English, name: en, widget: text }] }
+          - label: Photos
+            name: images
+            widget: object
+            fields:
+              - { label: "Photo d'accueil (grande)", name: hero, widget: image }
+              - { label: "Photo « la maison »", name: about, widget: image }
+
+      - name: guide
+        label: "Guide d'accueil (textes propres au guide)"
+        file: src/content/settings/guide.json
+        fields:
+          - { label: "Mot de bienvenue", name: welcome, widget: object, fields: [{ label: Français, name: fr, widget: text }, { label: English, name: en, widget: text }] }
+          - { label: "Signature", name: hostName, widget: string }
+          - label: "Vie de la maison"
+            name: houseRules
+            widget: list
+            fields:
+              - { label: Français, name: fr, widget: string }
+              - { label: English, name: en, widget: string }
+          - label: "Se déplacer à Rabat"
+            name: transportTips
+            widget: list
+            fields:
+              - { label: Titre, name: title, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }] }
+              - { label: Texte, name: text, widget: object, fields: [{ label: Français, name: fr, widget: text }, { label: English, name: en, widget: text }] }
+          - label: "Numéros d'urgence"
+            name: emergency
+            widget: list
+            fields:
+              - { label: Libellé, name: label, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }] }
+              - { label: Numéro, name: number, widget: string }
+          - label: "Bon à savoir"
+            name: goodToKnow
+            widget: list
+            required: false
+            fields:
+              - { label: Français, name: fr, widget: string }
+              - { label: English, name: en, widget: string }
+
+      - name: minibar
+        label: "Minibar (prix)"
+        file: src/content/settings/minibar.json
+        fields:
+          - label: Articles
+            name: items
+            widget: list
+            fields:
+              - { label: "Identifiant (sans espaces)", name: id, widget: string }
+              - { label: Nom, name: name, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }] }
+              - { label: "Prix (MAD)", name: price, widget: number, value_type: int, min: 0 }
+              - { label: Ordre, name: order, widget: number, value_type: int, default: 99 }
+
+  # ---------------- Chambres ----------------
+  - name: rooms
+    label: Chambres
+    folder: src/content/rooms
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    identifier_field: name.fr
+    summary: "{{name.fr}} — dès {{priceFrom}} MAD"
+    editor: { preview: false }
+    fields:
+      - { label: Nom, name: name, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }] }
+      - { label: Description, name: description, widget: object, fields: [{ label: Français, name: fr, widget: text }, { label: English, name: en, widget: text }] }
+      - { label: "Capacité (personnes)", name: capacity, widget: number, value_type: int, min: 1 }
+      - { label: "Surface (m²)", name: size, widget: number, value_type: int, min: 1 }
+      - { label: Literie, name: bed, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }] }
+      - label: Équipements
+        name: features
+        widget: list
+        fields:
+          - { label: Français, name: fr, widget: string }
+          - { label: English, name: en, widget: string }
+      - { label: "Prix à partir de (MAD / nuit)", name: priceFrom, widget: number, value_type: int, min: 0 }
+      - { label: Photo, name: image, widget: image }
+      - { label: "Ordre d'affichage", name: order, widget: number, value_type: int, default: 99 }
+
+  # ---------------- Services ----------------
+  - name: services
+    label: "Services & extras"
+    folder: src/content/services
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title.fr
+    summary: "{{title.fr}} — {{price.fr}}"
+    editor: { preview: false }
+    fields:
+      - { label: Titre, name: title, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }] }
+      - { label: Description, name: description, widget: object, fields: [{ label: Français, name: fr, widget: text }, { label: English, name: en, widget: text }] }
+      - { label: "Tarif (texte libre)", name: price, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }] }
+      - label: Catégorie
+        name: category
+        widget: select
+        options:
+          - { label: "Table & cuisine", value: dining }
+          - { label: "Transferts & transports", value: transport }
+          - { label: "Bien-être", value: wellness }
+          - { label: "Autre", value: other }
+      - label: Icône
+        name: icon
+        widget: select
+        options: [dinner, breakfast, plane, train, car, spa, compass, star]
+      - { label: "Afficher sur le site", name: showOnSite, widget: boolean, default: true }
+      - { label: "Afficher dans le guide d'accueil", name: showInGuide, widget: boolean, default: true }
+      - { label: "Note (ex. délai de réservation)", name: note, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }], required: false }
+      - { label: "Ordre d'affichage", name: order, widget: number, value_type: int, default: 99 }
+
+  # ---------------- Bonnes adresses ----------------
+  - name: places
+    label: "Bonnes adresses à Rabat"
+    folder: src/content/places
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    identifier_field: name.fr
+    summary: "{{name.fr}} ({{category}})"
+    editor: { preview: false }
+    fields:
+      - { label: Nom, name: name, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }] }
+      - label: Catégorie
+        name: category
+        widget: select
+        options:
+          - { label: "À visiter", value: culture }
+          - { label: "Où manger", value: restaurant }
+          - { label: "Cafés & pauses", value: cafe }
+          - { label: "Shopping & artisanat", value: shopping }
+          - { label: "Nature & détente", value: nature }
+          - { label: "Soirées", value: nightlife }
+      - { label: Description, name: description, widget: object, fields: [{ label: Français, name: fr, widget: text }, { label: English, name: en, widget: text }] }
+      - { label: "Lien Google Maps", name: mapsUrl, widget: string, hint: "Dans Google Maps : Partager → Copier le lien" }
+      - { label: "Distance / temps", name: distance, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }] }
+      - { label: "Notre conseil", name: tip, widget: object, fields: [{ label: Français, name: fr, widget: string }, { label: English, name: en, widget: string }], required: false }
+      - { label: "Mettre en avant sur la page d'accueil", name: featured, widget: boolean, default: false }
+      - { label: "Ordre d'affichage", name: order, widget: number, value_type: int, default: 99 }

@@ -1,0 +1,12 @@
+{
+  "name": { "fr": "Dar Naji", "en": "Dar Naji" },
+  "category": "restaurant",
+  "description": {
+    "fr": "Institution populaire près de Bab El Had : tajines, tanjia et pastilla à prix doux, sur la terrasse ou dans la salle décorée.",
+    "en": "A popular institution near Bab El Had: tagines, tanjia and pastilla at gentle prices, on the terrace or in the decorated dining room."
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Dar+Naji+Rabat",
+  "distance": { "fr": "5 min à pied", "en": "5-min walk" },
+  "featured": false,
+  "order": 21
+}

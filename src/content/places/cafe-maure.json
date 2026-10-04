@@ -1,0 +1,12 @@
+{
+  "name": { "fr": "Café Maure", "en": "Café Maure" },
+  "category": "cafe",
+  "description": {
+    "fr": "Thé à la menthe et cornes de gazelle sur la terrasse de la Kasbah, face au Bouregreg et à Salé.",
+    "en": "Mint tea and gazelle horns on the Kasbah terrace, facing the Bouregreg river and Salé."
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Cafe+Maure+Kasbah+des+Oudayas+Rabat",
+  "distance": { "fr": "12 min à pied", "en": "12-min walk" },
+  "featured": true,
+  "order": 30
+}

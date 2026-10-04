@@ -1,0 +1,13 @@
+{
+  "title": { "fr": "Transfert aéroport Casablanca", "en": "Casablanca airport transfer" },
+  "description": {
+    "fr": "Transfert privé depuis ou vers l'aéroport Mohammed V (environ 1h15 de route), véhicule climatisé.",
+    "en": "Private transfer to or from Mohammed V airport (around 1 h 15 drive), air-conditioned vehicle."
+  },
+  "price": { "fr": "1 000 MAD par trajet (1 à 4 pers.)", "en": "1,000 MAD per trip (1 to 4 people)" },
+  "category": "transport",
+  "icon": "plane",
+  "showOnSite": true,
+  "showInGuide": true,
+  "order": 11
+}

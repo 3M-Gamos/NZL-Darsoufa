@@ -1,0 +1,13 @@
+{
+  "title": { "fr": "Petit-déjeuner maison", "en": "Home-made breakfast" },
+  "description": {
+    "fr": "Servi au patio ou sur la terrasse : msemen, baghrir, pain frais, confitures maison, fruits de saison, jus pressé, thé et café.",
+    "en": "Served in the patio or on the terrace: msemen, baghrir, fresh bread, home-made jams, seasonal fruit, fresh juice, tea and coffee."
+  },
+  "price": { "fr": "Inclus dans le séjour", "en": "Included in your stay" },
+  "category": "dining",
+  "icon": "breakfast",
+  "showOnSite": true,
+  "showInGuide": true,
+  "order": 1
+}

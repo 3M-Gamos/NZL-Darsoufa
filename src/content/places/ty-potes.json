@@ -1,0 +1,12 @@
+{
+  "name": { "fr": "Ty Potes", "en": "Ty Potes" },
+  "category": "restaurant",
+  "description": {
+    "fr": "Crêperie et table d'hôtes dans une villa du quartier Hassan, jardin ombragé et brunch le week-end.",
+    "en": "Crêperie and table d'hôtes in a villa of the Hassan district, with a shaded garden and weekend brunch."
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Ty+Potes+Rabat",
+  "distance": { "fr": "20 min à pied", "en": "20-min walk" },
+  "featured": false,
+  "order": 22
+}

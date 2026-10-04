@@ -1,0 +1,48 @@
+{
+  "name": "Riad Dar Soufa",
+  "tagline": {
+    "fr": "Une maison d'hôtes intime au cœur de la médina de Rabat",
+    "en": "An intimate guesthouse in the heart of Rabat's medina"
+  },
+  "intro": {
+    "fr": "Derrière une porte discrète de la médina, Dar Soufa s'ouvre sur un patio baigné de lumière. Quelques chambres seulement, un petit-déjeuner fait maison, une terrasse sur les toits et une équipe qui connaît Rabat comme sa poche : nous recevons comme on reçoit des amis.\n\nLa Kasbah des Oudayas, la Tour Hassan et les ruelles de la rue des Consuls sont à quelques minutes à pied.",
+    "en": "Behind a discreet door in the medina, Dar Soufa opens onto a light-filled patio. Just a handful of rooms, a home-made breakfast, a rooftop terrace and a team who knows Rabat inside out: we welcome you the way we welcome friends.\n\nThe Kasbah of the Udayas, the Hassan Tower and the lanes of Rue des Consuls are a few minutes' walk away."
+  },
+  "address": {
+    "street": "Médina de Rabat (adresse exacte à compléter)",
+    "city": "Rabat",
+    "postalCode": "10030",
+    "country": { "fr": "Maroc", "en": "Morocco" }
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Riad+Dar+Soufa+Rabat",
+  "phone": "+212 6 00 00 00 00",
+  "whatsapp": "212600000000",
+  "email": "contact@riaddarsoufa.com",
+  "bookingUrl": "https://www.booking.com/",
+  "instagram": "https://www.instagram.com/",
+  "hours": {
+    "checkInFrom": "14:00",
+    "checkInTo": "20:00",
+    "checkOut": "11:00",
+    "breakfastFrom": "08:00",
+    "breakfastTo": "10:30",
+    "receptionFrom": "08:00",
+    "receptionTo": "22:00"
+  },
+  "wifi": {
+    "ssid": "DarSoufa-Guests",
+    "password": "A-COMPLETER"
+  },
+  "access": {
+    "fr": "Le riad se trouve dans la médina, à 5 minutes à pied de Bab El Had. Les voitures ne circulent pas dans les ruelles : donnez le nom du riad au chauffeur de taxi, il vous déposera à l'entrée la plus proche de la médina. Prévenez-nous de votre heure d'arrivée, nous venons vous chercher à Bab El Had si vous le souhaitez.",
+    "en": "The riad is in the medina, a 5-minute walk from Bab El Had. Cars cannot drive through the lanes: give the riad's name to your taxi driver, who will drop you at the closest medina entrance. Let us know your arrival time and we will come to meet you at Bab El Had if you wish."
+  },
+  "parking": {
+    "fr": "Parking public gardé à Bab El Had (environ 20 MAD par jour, ouvert 24h/24). Nous pouvons également réserver une place dans un parking privé sur demande.",
+    "en": "Guarded public car park at Bab El Had (around 20 MAD per day, open 24/7). We can also book a space in a private car park on request."
+  },
+  "images": {
+    "hero": "/images/placeholders/hero.svg",
+    "about": "/images/placeholders/patio.svg"
+  }
+}

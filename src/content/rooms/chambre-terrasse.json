@@ -1,0 +1,19 @@
+{
+  "name": { "fr": "Chambre Terrasse", "en": "Terrace Room" },
+  "description": {
+    "fr": "Sous les toits, avec un accès direct à la terrasse et une vue sur les minarets de la médina. Parfaite pour les couchers de soleil.",
+    "en": "Under the roof, with direct access to the terrace and a view over the medina's minarets. Perfect for sunsets."
+  },
+  "capacity": 2,
+  "size": 22,
+  "bed": { "fr": "Lit double 160 cm", "en": "160 cm double bed" },
+  "features": [
+    { "fr": "Accès direct à la terrasse", "en": "Direct terrace access" },
+    { "fr": "Salle de bain privée avec douche", "en": "Private bathroom with shower" },
+    { "fr": "Climatisation réversible", "en": "Air conditioning & heating" },
+    { "fr": "Wi-Fi", "en": "Wi-Fi" }
+  ],
+  "priceFrom": 900,
+  "image": "/images/placeholders/room-4.svg",
+  "order": 4
+}

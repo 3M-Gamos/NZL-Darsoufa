@@ -1,0 +1,12 @@
+{
+  "name": { "fr": "Plage de Rabat & Marina Bouregreg", "en": "Rabat Beach & Bouregreg Marina" },
+  "category": "nature",
+  "description": {
+    "fr": "La plage au pied de la Kasbah pour les surfeurs, la marina de l'autre côté du fleuve pour une promenade en soirée.",
+    "en": "The beach at the foot of the Kasbah for surfers, and the marina across the river for an evening stroll."
+  },
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Plage+de+Rabat",
+  "distance": { "fr": "15 min à pied", "en": "15-min walk" },
+  "featured": false,
+  "order": 41
+}

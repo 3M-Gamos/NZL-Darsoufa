@@ -1,0 +1,52 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/ui';
+import { getRiad, telLink } from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const riad = await getRiad();
+---
+<BaseLayout lang={lang} page="contact" title={t('contact.title')} description={t('contact.intro')}>
+  <section class="container-x pt-16 sm:pt-24">
+    <SectionHeading as="h1" eyebrow={riad.name} title={t('contact.title')} text={t('contact.intro')} />
+    <div class="mt-8 flex flex-wrap gap-3">
+      <WhatsAppButton number={riad.whatsapp} message={t('wa.default')} label={t('contact.whatsapp')} />
+      <a href={telLink(riad.phone)} class="btn-outline"><Icon name="phone" size={18} /> {t('contact.call')}</a>
+      <a href={`mailto:${riad.email}`} class="btn-outline"><Icon name="mail" size={18} /> {t('contact.email')}</a>
+    </div>
+  </section>
+
+  <section class="container-x mt-16 grid gap-6 lg:grid-cols-3">
+    <div class="card p-7">
+      <h2 class="inline-flex items-center gap-2 text-2xl"><Icon name="map" class="text-terracotta" /> {t('contact.address')}</h2>
+      <address class="mt-4 not-italic leading-relaxed text-ink-soft">
+        {riad.name}<br />{riad.address.street}<br />{riad.address.postalCode} {riad.address.city}, {riad.address.country[lang]}
+      </address>
+      <p class="mt-4 text-sm text-ink-soft"><a href={telLink(riad.phone)} class="hover:text-terracotta">{riad.phone}</a><br /><a href={`mailto:${riad.email}`} class="hover:text-terracotta">{riad.email}</a></p>
+      <a href={riad.mapsUrl} target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 text-sm font-medium text-terracotta hover:text-terracotta-dark"><Icon name="external" size={16} /> {t('contact.maps')}</a>
+    </div>
+
+    <div class="card p-7">
+      <h2 class="inline-flex items-center gap-2 text-2xl"><Icon name="clock" class="text-terracotta" /> {t('contact.hours')}</h2>
+      <dl class="mt-4 space-y-3 text-sm">
+        <div class="flex justify-between gap-4 border-b border-sand-dark/60 pb-3"><dt class="text-ink-soft">{t('contact.checkIn')}</dt><dd class="font-medium">{riad.hours.checkInFrom} – {riad.hours.checkInTo}</dd></div>
+        <div class="flex justify-between gap-4 border-b border-sand-dark/60 pb-3"><dt class="text-ink-soft">{t('contact.checkOut')}</dt><dd class="font-medium">{riad.hours.checkOut}</dd></div>
+        <div class="flex justify-between gap-4 border-b border-sand-dark/60 pb-3"><dt class="text-ink-soft">{t('contact.breakfast')}</dt><dd class="font-medium">{riad.hours.breakfastFrom} – {riad.hours.breakfastTo}</dd></div>
+        <div class="flex justify-between gap-4"><dt class="text-ink-soft">{t('contact.reception')}</dt><dd class="font-medium">{riad.hours.receptionFrom} – {riad.hours.receptionTo}</dd></div>
+      </dl>
+    </div>
+
+    <div class="card p-7">
+      <h2 class="inline-flex items-center gap-2 text-2xl"><Icon name="home" class="text-terracotta" /> {t('contact.access')}</h2>
+      <p class="mt-4 text-sm leading-relaxed text-ink-soft">{riad.access[lang]}</p>
+      <h3 class="mt-6 inline-flex items-center gap-2 text-lg"><Icon name="parking" size={18} class="text-terracotta" /> {t('contact.parking')}</h3>
+      <p class="mt-2 text-sm leading-relaxed text-ink-soft">{riad.parking[lang]}</p>
+    </div>
+  </section>
+</BaseLayout>

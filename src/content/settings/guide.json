@@ -1,0 +1,42 @@
+{
+  "welcome": {
+    "fr": "Nous sommes heureux de vous accueillir à Dar Soufa. Vous trouverez ici tout ce qu'il faut savoir pour profiter de la maison et de Rabat. Pour toute question, nous sommes à un message de vous.",
+    "en": "We are delighted to welcome you to Dar Soufa. Here you will find everything you need to enjoy the house and Rabat. For any question, we are just a message away."
+  },
+  "hostName": "Riad Dar Soufa",
+  "houseRules": [
+    { "fr": "La maison est non-fumeur à l'intérieur ; la terrasse est à votre disposition.", "en": "The house is non-smoking indoors; the terrace is yours to enjoy." },
+    { "fr": "Merci de respecter le calme du patio après 22h, les chambres s'ouvrent dessus.", "en": "Please keep the patio quiet after 10 pm, as the rooms open onto it." },
+    { "fr": "La porte d'entrée est fermée la nuit : une clé vous est remise à l'arrivée.", "en": "The front door is locked at night: you receive a key on arrival." },
+    { "fr": "Les serviettes sont changées tous les deux jours, ou sur simple demande.", "en": "Towels are changed every two days, or on request." }
+  ],
+  "transportTips": [
+    {
+      "title": { "fr": "Petits taxis bleus", "en": "Blue petits taxis" },
+      "text": { "fr": "Pour les trajets dans Rabat. Demandez le compteur ; une course en ville coûte généralement 15 à 30 MAD.", "en": "For trips within Rabat. Ask for the meter; a ride in town usually costs 15 to 30 MAD." }
+    },
+    {
+      "title": { "fr": "Tramway", "en": "Tramway" },
+      "text": { "fr": "Deux lignes relient la médina, le centre, Agdal et Salé. Ticket à 6 MAD, à acheter aux bornes des stations.", "en": "Two lines link the medina, the centre, Agdal and Salé. Tickets cost 6 MAD, from the machines at each stop." }
+    },
+    {
+      "title": { "fr": "Train", "en": "Train" },
+      "text": { "fr": "Gare Rabat-Ville à 10 minutes à pied. Casablanca en 1h, Fès en 2h30, Tanger en 1h20 avec Al Boraq (depuis Rabat-Agdal).", "en": "Rabat-Ville station is a 10-minute walk away. Casablanca in 1 h, Fez in 2 h 30, Tangier in 1 h 20 on Al Boraq (from Rabat-Agdal)." }
+    },
+    {
+      "title": { "fr": "Applications", "en": "Apps" },
+      "text": { "fr": "Careem et inDrive fonctionnent bien à Rabat pour commander un véhicule.", "en": "Careem and inDrive work well in Rabat for ordering a ride." }
+    }
+  ],
+  "emergency": [
+    { "label": { "fr": "Police", "en": "Police" }, "number": "19" },
+    { "label": { "fr": "Pompiers / SAMU", "en": "Fire brigade / Ambulance" }, "number": "15" },
+    { "label": { "fr": "Gendarmerie", "en": "Gendarmerie" }, "number": "177" },
+    { "label": { "fr": "Pharmacie de garde (renseignement)", "en": "Duty pharmacy (information)" }, "number": "+212 5 37 72 61 31" }
+  ],
+  "goodToKnow": [
+    { "fr": "La monnaie est le dirham (MAD). Des distributeurs se trouvent à Bab El Had et avenue Mohammed V.", "en": "The currency is the dirham (MAD). ATMs are at Bab El Had and on Avenue Mohammed V." },
+    { "fr": "Le vendredi, de nombreuses boutiques de la médina ferment en fin de matinée pour la prière.", "en": "On Fridays, many medina shops close at the end of the morning for prayers." },
+    { "fr": "L'eau du robinet est potable mais nous mettons de l'eau en bouteille à votre disposition.", "en": "Tap water is drinkable, but bottled water is available for you." }
+  ]
+}

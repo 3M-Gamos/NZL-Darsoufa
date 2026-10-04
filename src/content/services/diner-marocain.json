@@ -1,0 +1,14 @@
+{
+  "title": { "fr": "Dîner marocain", "en": "Moroccan dinner" },
+  "description": {
+    "fr": "Un menu traditionnel préparé par notre cuisinière : salades marocaines, tajine ou couscous du jour, pâtisseries et thé à la menthe. Servi à partir de 19h30.",
+    "en": "A traditional menu prepared by our cook: Moroccan salads, tagine or couscous of the day, pastries and mint tea. Served from 7:30 pm."
+  },
+  "price": { "fr": "250 MAD par personne", "en": "250 MAD per person" },
+  "category": "dining",
+  "icon": "dinner",
+  "showOnSite": true,
+  "showInGuide": true,
+  "note": { "fr": "À réserver avant 14h le jour même.", "en": "Please book before 2 pm on the day." },
+  "order": 2
+}

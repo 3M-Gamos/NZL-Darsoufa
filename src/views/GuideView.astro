@@ -1,0 +1,267 @@
+---
+/**
+ * Guide d'accueil digital (Welcome Book).
+ * Page mobile-first, sobre, accessible via QR code (/guide/) et depuis le site.
+ * Toutes les données viennent de src/content/ : aucune information n'est dupliquée.
+ */
+import type { Lang } from '../i18n/ui';
+import { localePath, useTranslations } from '../i18n/ui';
+import {
+  formatPrice, getGuide, getMinibar, getPlaces, getRiad, getServices, groupBy,
+  placeCategories, serviceCategories, telLink, whatsappLink,
+} from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LangSwitch from '../components/LangSwitch.astro';
+import Icon from '../components/Icon.astro';
+import type { IconName } from '../components/Icon.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const riad = await getRiad();
+const guide = await getGuide();
+const serviceGroups = groupBy(await getServices('guide'), (s) => s.data.category, serviceCategories);
+const minibar = await getMinibar();
+const placeGroups = groupBy(await getPlaces(), (p) => p.data.category, placeCategories);
+
+const sections: { id: string; label: string; icon: IconName }[] = [
+  { id: 'essentiels', label: t('guide.essentials'), icon: 'home' },
+  { id: 'services', label: t('guide.services'), icon: 'dinner' },
+  { id: 'rabat', label: t('guide.rabat'), icon: 'map' },
+  { id: 'pratique', label: t('guide.practical'), icon: 'info' },
+  { id: 'contact', label: t('guide.contact'), icon: 'phone' },
+];
+const waGuest = whatsappLink(riad.whatsapp, t('guide.whatsappMessage'));
+---
+<BaseLayout lang={lang} page="guide" title={t('guide.title')} description={guide.welcome[lang]} bare>
+  <div class="mx-auto min-h-screen max-w-xl bg-paper pb-28 shadow-[0_0_60px_-30px_rgb(43_37_34/0.25)]">
+    <!-- Barre haute -->
+    <header class="sticky top-0 z-30 border-b border-sand-dark/60 bg-paper/95 backdrop-blur">
+      <div class="flex h-14 items-center justify-between px-5">
+        <a href={localePath(lang, 'home')} class="font-display text-xl font-semibold tracking-tight">{riad.name}</a>
+        <LangSwitch lang={lang} page="guide" compact />
+      </div>
+      <nav class="no-print flex gap-1 overflow-x-auto px-3 pb-2 text-xs [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label={t('guide.title')}>
+        {sections.map((s) => (
+          <a href={`#${s.id}`} class="shrink-0 rounded-full px-3 py-1.5 text-ink-soft transition-colors hover:bg-sand hover:text-ink" data-nav={s.id}>{s.label}</a>
+        ))}
+      </nav>
+    </header>
+
+    <!-- Bienvenue -->
+    <section class="px-5 pt-8">
+      <p class="eyebrow">{t('guide.title')}</p>
+      <h1 class="mt-3 text-4xl leading-none">{t('guide.welcome')}</h1>
+      <p class="mt-4 leading-relaxed text-ink-soft">{guide.welcome[lang]}</p>
+      <p class="mt-3 text-sm text-ink-muted">{t('guide.hostSign')} <span class="font-medium text-ink">{guide.hostName}</span></p>
+    </section>
+
+    <!-- Essentiels -->
+    <section id="essentiels" class="scroll-mt-28 px-5 pt-10">
+      <h2 class="text-2xl">{t('guide.essentials')}</h2>
+
+      <div class="card mt-4 p-5">
+        <h3 class="inline-flex items-center gap-2 text-lg"><Icon name="clock" class="text-terracotta" /> {t('guide.hours')}</h3>
+        <dl class="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
+          <div><dt class="text-ink-muted">{t('contact.checkIn')}</dt><dd class="font-medium">{riad.hours.checkInFrom} – {riad.hours.checkInTo}</dd></div>
+          <div><dt class="text-ink-muted">{t('contact.checkOut')}</dt><dd class="font-medium">{riad.hours.checkOut}</dd></div>
+          <div><dt class="text-ink-muted">{t('contact.breakfast')}</dt><dd class="font-medium">{riad.hours.breakfastFrom} – {riad.hours.breakfastTo}</dd></div>
+          <div><dt class="text-ink-muted">{t('contact.reception')}</dt><dd class="font-medium">{riad.hours.receptionFrom} – {riad.hours.receptionTo}</dd></div>
+        </dl>
+      </div>
+
+      <div class="card mt-4 p-5">
+        <h3 class="inline-flex items-center gap-2 text-lg"><Icon name="wifi" class="text-terracotta" /> {t('guide.wifi')}</h3>
+        <dl class="mt-3 space-y-2 text-sm">
+          <div class="flex items-center justify-between gap-3 rounded-xl bg-sand/70 px-3 py-2">
+            <div><dt class="text-xs text-ink-muted">{t('guide.wifiNetwork')}</dt><dd class="font-medium">{riad.wifi.ssid}</dd></div>
+            <button type="button" class="inline-flex items-center gap-1 rounded-full border border-ink/15 px-3 py-1 text-xs" data-copy={riad.wifi.ssid} data-label={t('guide.copy')} data-copied={t('guide.copied')}><Icon name="copy" size={14} /> <span>{t('guide.copy')}</span></button>
+          </div>
+          <div class="flex items-center justify-between gap-3 rounded-xl bg-sand/70 px-3 py-2">
+            <div><dt class="text-xs text-ink-muted">{t('guide.wifiPassword')}</dt><dd class="font-medium tracking-wide">{riad.wifi.password}</dd></div>
+            <button type="button" class="inline-flex items-center gap-1 rounded-full border border-ink/15 px-3 py-1 text-xs" data-copy={riad.wifi.password} data-label={t('guide.copy')} data-copied={t('guide.copied')}><Icon name="copy" size={14} /> <span>{t('guide.copy')}</span></button>
+          </div>
+        </dl>
+      </div>
+
+      <div class="card mt-4 p-5">
+        <h3 class="inline-flex items-center gap-2 text-lg"><Icon name="map" class="text-terracotta" /> {t('guide.access')}</h3>
+        <p class="mt-3 text-sm leading-relaxed text-ink-soft">{riad.access[lang]}</p>
+        <a href={riad.mapsUrl} target="_blank" rel="noopener" class="btn-outline mt-4 w-full !py-2.5 text-xs"><Icon name="external" size={16} /> {t('guide.maps')}</a>
+      </div>
+
+      <div class="card mt-4 p-5">
+        <h3 class="inline-flex items-center gap-2 text-lg"><Icon name="parking" class="text-terracotta" /> {t('guide.parking')}</h3>
+        <p class="mt-3 text-sm leading-relaxed text-ink-soft">{riad.parking[lang]}</p>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="scroll-mt-28 px-5 pt-10">
+      <h2 class="text-2xl">{t('guide.services')}</h2>
+      {serviceGroups.map(([category, list]) => (
+        <div class="mt-5">
+          <h3 class="text-[0.7rem] font-medium uppercase tracking-[0.22em] text-ink-muted">{t(`services.${category}`)}</h3>
+          <ul class="mt-2 divide-y divide-sand-dark/60 rounded-2xl border border-sand-dark/60 bg-white/70">
+            {list.map((s) => (
+              <li class="flex gap-3 p-4">
+                <span class="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-terracotta-light text-terracotta"><Icon name={s.data.icon} size={18} /></span>
+                <div class="min-w-0 flex-1">
+                  <div class="flex flex-wrap items-baseline justify-between gap-x-3">
+                    <p class="font-medium">{s.data.title[lang]}</p>
+                    <p class="text-sm text-zellige-dark">{s.data.price[lang]}</p>
+                  </div>
+                  <p class="mt-1 text-sm leading-relaxed text-ink-soft">{s.data.description[lang]}</p>
+                  {s.data.note?.[lang] && <p class="mt-1 text-xs text-ink-muted">{s.data.note[lang]}</p>}
+                  <a href={whatsappLink(riad.whatsapp, `${t('wa.service')}${s.data.title[lang]}`)} target="_blank" rel="noopener" class="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-terracotta"><Icon name="whatsapp" size={14} /> {t('guide.bookService')}</a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+
+      <div class="mt-6">
+        <h3 class="text-[0.7rem] font-medium uppercase tracking-[0.22em] text-ink-muted">{t('guide.minibar')}</h3>
+        <p class="mt-1 text-xs text-ink-muted">{t('services.minibarIntro')}</p>
+        <ul class="mt-2 divide-y divide-sand-dark/60 rounded-2xl border border-sand-dark/60 bg-white/70 px-4">
+          {minibar.map((item) => (
+            <li class="flex items-baseline justify-between gap-4 py-2.5 text-sm">
+              <span>{item.data.name[lang]}</span>
+              <span class="font-medium tabular-nums">{formatPrice(item.data.price, lang)} {t('currency')}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Rabat -->
+    <section id="rabat" class="scroll-mt-28 px-5 pt-10">
+      <h2 class="text-2xl">{t('rabat.title')}</h2>
+      <p class="mt-2 text-sm text-ink-soft">{t('rabat.intro')}</p>
+      {placeGroups.map(([category, list]) => (
+        <div class="mt-5">
+          <h3 class="text-[0.7rem] font-medium uppercase tracking-[0.22em] text-ink-muted">{t(`rabat.${category}`)}</h3>
+          <ul class="mt-2 space-y-2">
+            {list.map((p) => (
+              <li class="card p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="min-w-0">
+                    <p class="font-medium leading-snug">{p.data.name[lang]}</p>
+                    <p class="mt-0.5 text-xs text-ink-muted">{p.data.distance[lang]}</p>
+                  </div>
+                  <a href={p.data.mapsUrl} target="_blank" rel="noopener" class="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-terracotta px-3 py-1.5 text-xs font-medium text-paper" aria-label={`${t('rabat.maps')} – ${p.data.name[lang]}`}><Icon name="map" size={14} /> {t('rabat.maps')}</a>
+                </div>
+                <p class="mt-2 text-sm leading-relaxed text-ink-soft">{p.data.description[lang]}</p>
+                {p.data.tip?.[lang] && <p class="mt-2 rounded-xl bg-zellige-light/70 px-3 py-2 text-xs leading-relaxed text-zellige-dark"><strong class="font-medium">{t('rabat.tip')} :</strong> {p.data.tip[lang]}</p>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <!-- Pratique -->
+    <section id="pratique" class="scroll-mt-28 px-5 pt-10">
+      <h2 class="text-2xl">{t('guide.practical')}</h2>
+
+      <div class="card mt-4 p-5">
+        <h3 class="inline-flex items-center gap-2 text-lg"><Icon name="car" class="text-terracotta" /> {t('guide.transportTips')}</h3>
+        <ul class="mt-3 space-y-3">
+          {guide.transportTips.map((tip) => (
+            <li class="text-sm"><p class="font-medium">{tip.title[lang]}</p><p class="mt-0.5 leading-relaxed text-ink-soft">{tip.text[lang]}</p></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="card mt-4 p-5">
+        <h3 class="inline-flex items-center gap-2 text-lg"><Icon name="home" class="text-terracotta" /> {t('guide.houseRules')}</h3>
+        <ul class="mt-3 space-y-2">
+          {guide.houseRules.map((rule) => (
+            <li class="flex gap-2 text-sm leading-relaxed text-ink-soft"><Icon name="check" size={16} class="mt-1 shrink-0 text-zellige" /> <span>{rule[lang]}</span></li>
+          ))}
+        </ul>
+      </div>
+
+      {guide.goodToKnow.length > 0 && (
+        <div class="card mt-4 p-5">
+          <h3 class="inline-flex items-center gap-2 text-lg"><Icon name="info" class="text-terracotta" /> {t('guide.goodToKnow')}</h3>
+          <ul class="mt-3 space-y-2">
+            {guide.goodToKnow.map((item) => (
+              <li class="flex gap-2 text-sm leading-relaxed text-ink-soft"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ochre"></span> <span>{item[lang]}</span></li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div class="card mt-4 p-5">
+        <h3 class="inline-flex items-center gap-2 text-lg"><Icon name="alert" class="text-terracotta" /> {t('guide.emergency')}</h3>
+        <ul class="mt-3 divide-y divide-sand-dark/60">
+          {guide.emergency.map((e) => (
+            <li class="flex items-center justify-between gap-4 py-2 text-sm">
+              <span class="text-ink-soft">{e.label[lang]}</span>
+              <a href={telLink(e.number)} class="font-medium tabular-nums text-terracotta">{e.number}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="scroll-mt-28 px-5 pt-10">
+      <h2 class="text-2xl">{t('guide.contact')}</h2>
+      <div class="mt-4 grid grid-cols-3 gap-2 text-center text-xs">
+        <a href={waGuest} target="_blank" rel="noopener" class="card flex flex-col items-center gap-1.5 py-4 text-whatsapp"><Icon name="whatsapp" size={22} /> <span class="text-ink">{t('guide.whatsapp')}</span></a>
+        <a href={telLink(riad.phone)} class="card flex flex-col items-center gap-1.5 py-4 text-terracotta"><Icon name="phone" size={22} /> <span class="text-ink">{t('guide.call')}</span></a>
+        <a href={`mailto:${riad.email}`} class="card flex flex-col items-center gap-1.5 py-4 text-terracotta"><Icon name="mail" size={22} /> <span class="text-ink">{t('guide.email')}</span></a>
+      </div>
+      <address class="mt-5 text-sm not-italic leading-relaxed text-ink-soft">
+        <strong class="font-medium text-ink">{riad.name}</strong><br />
+        {riad.address.street}<br />{riad.address.postalCode} {riad.address.city}, {riad.address.country[lang]}<br />
+        {riad.phone} · {riad.email}
+      </address>
+      <a href={localePath(lang, 'home')} class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-terracotta">{t('guide.fullSite')} <Icon name="arrow" size={16} /></a>
+    </section>
+  </div>
+
+  <!-- Bouton WhatsApp flottant -->
+  <a href={waGuest} target="_blank" rel="noopener" class="no-print fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-whatsapp px-5 py-3.5 text-sm font-medium text-white shadow-soft transition-transform hover:scale-105" aria-label="WhatsApp">
+    <Icon name="whatsapp" size={22} /> {t('guide.whatsapp')}
+  </a>
+
+  <script>
+    // Copier le Wi-Fi dans le presse-papiers
+    document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const label = btn.querySelector('span');
+        try {
+          await navigator.clipboard.writeText(btn.dataset.copy ?? '');
+          if (label) label.textContent = btn.dataset.copied ?? 'OK';
+          setTimeout(() => { if (label) label.textContent = btn.dataset.label ?? ''; }, 1600);
+        } catch {
+          /* presse-papiers indisponible : rien à faire, la valeur reste lisible */
+        }
+      });
+    });
+
+    // Surligner la section visible dans la barre de navigation
+    const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-nav]')];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          links.forEach((l) => {
+            const active = l.dataset.nav === entry.target.id;
+            l.classList.toggle('bg-ink', active);
+            l.classList.toggle('text-paper', active);
+          });
+        }
+      },
+      { rootMargin: '-40% 0px -55% 0px' },
+    );
+    links.forEach((l) => {
+      const target = document.getElementById(l.dataset.nav ?? '');
+      if (target) observer.observe(target);
+    });
+  </script>
+</BaseLayout>

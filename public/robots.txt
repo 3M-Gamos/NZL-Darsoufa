@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /qr/
+
+Sitemap: https://www.riaddarsoufa.com/sitemap-index.xml

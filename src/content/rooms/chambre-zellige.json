@@ -1,0 +1,19 @@
+{
+  "name": { "fr": "Chambre Zellige", "en": "Zellige Room" },
+  "description": {
+    "fr": "Au premier étage, une chambre lumineuse habillée de zelliges verts, avec un coin lecture sous la fenêtre.",
+    "en": "On the first floor, a bright room dressed in green zellige tiles, with a reading nook under the window."
+  },
+  "capacity": 2,
+  "size": 20,
+  "bed": { "fr": "Lit double 160 cm ou lits jumeaux", "en": "160 cm double bed or twin beds" },
+  "features": [
+    { "fr": "Salle de bain privée avec douche", "en": "Private bathroom with shower" },
+    { "fr": "Climatisation réversible", "en": "Air conditioning & heating" },
+    { "fr": "Wi-Fi", "en": "Wi-Fi" },
+    { "fr": "Coin lecture", "en": "Reading nook" }
+  ],
+  "priceFrom": 800,
+  "image": "/images/placeholders/room-2.svg",
+  "order": 2
+}

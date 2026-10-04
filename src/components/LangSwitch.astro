@@ -1,0 +1,22 @@
+---
+import type { Lang, RouteKey } from '../i18n/ui';
+import { localePath, useTranslations } from '../i18n/ui';
+
+interface Props { lang: Lang; page: RouteKey; class?: string; compact?: boolean }
+const { lang, page, class: className = '', compact = false } = Astro.props;
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const t = useTranslations(lang);
+---
+<a
+  href={localePath(other, page)}
+  hreflang={other}
+  lang={other}
+  class:list={[
+    'inline-flex items-center gap-1.5 rounded-full border border-ink/20 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.18em] transition-colors hover:border-ink hover:bg-ink hover:text-paper',
+    className,
+  ]}
+  aria-label={t('lang.switch')}
+>
+  <span aria-hidden="true" class="h-1.5 w-1.5 rounded-full bg-terracotta"></span>
+  {compact ? t('lang.switchShort') : t('lang.switch')}
+</a>

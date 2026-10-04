@@ -1,0 +1,41 @@
+---
+/**
+ * Page de redirection : choisit la langue du navigateur (fr par défaut)
+ * et renvoie vers la version localisée. Fonctionne sans JavaScript
+ * grâce au meta refresh vers la langue par défaut.
+ */
+import type { RouteKey } from '../i18n/ui';
+import { localePath } from '../i18n/ui';
+
+interface Props { page: RouteKey; title: string }
+const { page, title } = Astro.props;
+const fr = localePath('fr', page);
+const en = localePath('en', page);
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    <link rel="alternate" hreflang="fr" href={fr} />
+    <link rel="alternate" hreflang="en" href={en} />
+    <meta http-equiv="refresh" content={`1; url=${fr}`} />
+    <script is:inline define:vars={{ fr, en }}>
+      const query = window.location.search;
+      const langs = navigator.languages || [navigator.language || 'fr'];
+      const target = langs.some((l) => l.toLowerCase().startsWith('fr')) ? fr
+        : langs.some((l) => l.toLowerCase().startsWith('en')) ? en : fr;
+      window.location.replace(target + query);
+    </script>
+    <style>
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #fbf7f1; color: #2b2522; font-family: Georgia, serif; }
+      a { color: #a9573b; }
+    </style>
+  </head>
+  <body>
+    <p>{title} · <a href={fr} lang="fr">Français</a> / <a href={en} lang="en">English</a></p>
+  </body>
+</html>
